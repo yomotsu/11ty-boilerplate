@@ -1,0 +1,16 @@
+# system
+.DS_Store
+*.sw*
+
+# env specific
+.env*
+
+# node.js
+node_modules
+npm-shrinkwrap.json
+npm-debug.log
+package-lock.json
+isolate-*
+
+# dist
+dist
