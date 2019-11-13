@@ -6,11 +6,11 @@ module.exports = ( env, argv ) => {
 
 	const config = {
 		entry: {
-			'dist/assets/js/bundle': './src/js/main.js',
-			'dist/assets/css/style': './src/scss/main.scss',
+			'assets/js/bundle': './src/js/main.js',
+			'assets/css/style': './src/scss/main.scss',
 		},
 		output: {
-			path: path.resolve( __dirname, '../' ),
+			path: path.resolve( __dirname, '../dist' ),
 			filename: '[name].js',
 		},
 		module: {
@@ -56,8 +56,7 @@ module.exports = ( env, argv ) => {
 			port: 3000,
 			contentBase: path.resolve( __dirname, '../dist/' ),
 			watchContentBase: true,
-			inline: true,
-			noInfo: true,
+			open: true,
 		},
 
 		plugins: [

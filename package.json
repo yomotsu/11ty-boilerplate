@@ -8,7 +8,7 @@
     "dev": "concurrently \"npm run watch-static\" \"npm run watch-html\" \"npm run dev-webpack\"",
     "watch-static": "cpx \"static/**/*\" dist --watch",
     "watch-html": "eleventy --watch --config=./build/eleventy.js",
-    "dev-webpack": "webpack-dev-server --mode development --config ./build/webpack.config.js --open"
+    "dev-webpack": "webpack-dev-server --mode development --config ./build/webpack.config.js"
   },
   "dependencies": {},
   "devDependencies": {
