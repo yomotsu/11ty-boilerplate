@@ -1,4 +1,3 @@
-
 module.exports = ( eleventyConfig ) => {
 
 	return {
@@ -13,7 +12,7 @@ module.exports = ( eleventyConfig ) => {
 		dataTemplateEngine: 'njk',
 		// passthroughFileCopy: true,
 		dir: {
-			input: 'src/html',
+			input: 'src/njk',
 			includes: '_includes', // ⚠️ This value is relative to your input directory.
 			// data: '_data',
 			output: 'dist',

@@ -6,13 +6,14 @@ module.exports = ( env, argv ) => {
 
 	const config = {
 		entry: {
-			'assets/js/bundle': './src/js/main.js',
-			'assets/css/style': './src/scss/main.scss',
+			'assets/js/bundle': './src/js/index.js',
+			'assets/css/style': './src/scss/index.scss',
 		},
 		output: {
 			path: path.resolve( __dirname, '../dist' ),
 			filename: '[name].js',
 		},
+		target: 'web',
 		module: {
 			rules: [
 				{
@@ -21,19 +22,23 @@ module.exports = ( env, argv ) => {
 					use: [ 'babel-loader' ],
 				},
 
-				{
+					{
 					test: /\.(css|scss)$/,
-					// test: /\/src\/style\.scss$/,
 					use: [
 						{
 							loader: MiniCssExtractPlugin.loader,
 						},
 						{
 							loader: 'css-loader',
+							options: {
+								url: false,
+							}
 						},
 						{
 							loader: 'postcss-loader',
-							options: require( './postcss.config' ),
+							options: {
+								postcssOptions: require( './postcss.config' ),
+							},
 						},
 						{
 							loader: 'sass-loader',
@@ -54,9 +59,20 @@ module.exports = ( env, argv ) => {
 		devServer: {
 			host: '0.0.0.0',
 			port: 3000,
-			contentBase: path.resolve( __dirname, '../dist/' ),
+			contentBase: [
+				path.resolve( __dirname, '../dist/' ),
+				path.resolve( __dirname, '../static/' ),
+			],
 			watchContentBase: true,
+			watchOptions: {
+				poll: 1000,
+				// poll: true,
+				ignored: [ '../node_modules/' ],
+			},
 			open: true,
+			// hot: true,
+			inline: true,
+			noInfo: true,
 		},
 
 		plugins: [
@@ -69,7 +85,6 @@ module.exports = ( env, argv ) => {
 						minimize: true
 					} ),
 				] : [
-					new webpack.NamedModulesPlugin(),
 					new webpack.HotModuleReplacementPlugin(),
 				]
 			),

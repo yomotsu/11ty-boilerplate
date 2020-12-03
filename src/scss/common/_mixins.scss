@@ -1,0 +1,174 @@
+@mixin mediaL () {
+	@media ( min-width: $breakpoint-middle + 1px ) {
+		@content;
+	}
+}
+
+@mixin mediaLM () {
+	@media ( min-width: $breakpoint-small + 1px ) {
+		@content;
+	}
+}
+
+@mixin mediaM () {
+	@media ( max-width: $breakpoint-middle ) and ( min-width: $breakpoint-small + 1px ) {
+		@content;
+	}
+}
+
+@mixin mediaMS () {
+	@media ( max-width: $breakpoint-middle ) {
+		@content;
+	}
+}
+
+@mixin mediaS () {
+	@media ( max-width: $breakpoint-small ) {
+		@content;
+	}
+}
+
+// hoisting order
+@include mediaL   { _{ _: 0; } }
+@include mediaLM  { _{ _: 0; } }
+@include mediaM   { _{ _: 0; } }
+@include mediaMS  { _{ _: 0; } }
+@include mediaS   { _{ _: 0; } }
+
+//
+// -----------------------------------------------------------------------------
+@mixin wordbreak () {
+	white-space: normal;
+	word-break: break-word;
+	word-break: break-all;
+	hyphens: auto;
+}
+
+// Swiper helper
+// -----------------------------------------------------------------------------
+@mixin swiperContainer {
+	margin: 0 auto;
+	position: relative;
+	overflow: hidden;
+	list-style: none;
+	padding: 0;
+	z-index: 1;
+
+	&.swiper-container-autoheight {
+		height: auto;
+	}
+}
+
+@mixin swiperWrapper {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	display: flex;
+	transition-property:transform;
+	box-sizing: content-box;
+
+	.swiper-container-free-mode > & {
+		transition-timing-function: ease-out;
+		margin: 0 auto;
+	}
+
+	.swiper-container-autoheight &{
+		align-items: flex-start;
+		transition-property: transform, height;
+	}
+}
+
+@mixin swiperSlide {
+	flex-shrink: 0;
+	width: 100%;
+	height: 100%;
+	position: relative;
+	transition-property: transform;
+
+	.swiper-container-autoheight & {
+		height: auto;
+	}
+}
+
+@mixin swiperPrev {
+	&.swiper-button-disabled {
+		opacity: 0.35;
+		cursor: auto;
+		pointer-events: none;
+	}
+}
+
+@mixin swiperNext {
+	&.swiper-button-disabled {
+		opacity: 0.35;
+		cursor: auto;
+		pointer-events: none;
+	}
+}
+
+//
+// -----------------------------------------------------------------------------
+
+@mixin multiLineEllipsis( $line-height: 1.2em, $line-count: 1, $bg-color: white ) {
+	overflow: hidden;
+	position: relative;
+	line-height: $line-height;
+	text-justify: inter-ideograph;
+	text-align: justify;
+	max-height: calc( #{ $line-height * $line-count } - 1px );
+	text-align: justify;
+	margin-right: -1em;
+	padding-right: 1em;
+
+	&:before {
+		content: '...';
+		position: absolute;
+		right: 0;
+		bottom: 0;
+	}
+
+	&:after {
+		content: '';
+		position: absolute;
+		right: 0;
+		width: 1em;
+		height: 1em;
+		margin-top: 0.2em;
+		background: $bg-color;
+	}
+}
+
+
+//
+// -----------------------------------------------------------------------------
+@mixin imageFit( $width, $height ) {
+	position: relative;
+	box-sizing: border-box;
+	overflow: hidden;
+	width: $width;
+	height: $height;
+
+	img {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		display: block;
+		width: auto;
+		max-width: $width;
+		max-height: $height;
+		margin: auto;
+	}
+}
+
+//
+// -----------------------------------------------------------------------------
+@function vwOf1280( $val ) {
+	@return ( $val / ( $max-width / 1px ) * 100vw );
+}
+
+@function vwOf375( $val ) {
+	@return max( #{ $val * 1px }, #{ $val / 375 * 100vw } );
+}

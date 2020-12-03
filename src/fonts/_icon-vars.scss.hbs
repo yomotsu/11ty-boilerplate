@@ -1,0 +1,65 @@
+$icons: (
+{{#each codepoints}}
+	"{{@key}}": unquote("\"\\{{this}}\""),
+{{/each}}
+);
+
+@function getIconContent( $key ) {
+	@each $pair in $icons {
+		@if nth( $pair, 1 ) == $key {
+			@return nth( $pair, 2 );
+		}
+	}
+	@return null;
+}
+
+@mixin icon( $name ) {
+	content: getIconContent( $name );
+	font-family: "{{ fontName }}";
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	vertical-align: middle;
+	display: inline-block;
+}
+
+@mixin initIcon() {
+	@font-face {
+		font-family: "{{ fontName }}";
+		src:
+			url( "../fonts/{{ fontName }}.woff2" ) format( "woff2" ),
+			url( "../fonts/{{ fontName }}.woff" ) format( "woff" );
+		font-weight: normal;
+		font-style: normal;
+	}
+
+	[class^="{{ classPrefix }}"],
+	[class*=" {{ classPrefix }}"] {
+		font-family: "{{ fontName }}";
+		speak: none;
+		font-style: normal;
+		font-weight: normal;
+		font-variant: normal;
+		text-transform: none;
+		line-height: 1;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		vertical-align: middle;
+		display: inline-block;
+
+		/* For With CJK Text =========== */
+		position: relative;
+		top: -0.1em;
+	}
+
+	{{#each codepoints}}
+	{{../baseSelector}}.-{{@key}}:before {
+		content: unquote("\"\\{{this}}\"");
+	}
+	{{/each}}
+}

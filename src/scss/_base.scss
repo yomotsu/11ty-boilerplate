@@ -1,0 +1,81 @@
+// ::-webkit-selection {
+// 	color: #fff;
+// 	text-shadow: none;
+// 	background: rgba( $color-main, 0.7 );
+// }
+
+// ::selection {
+// 	color: #fff;
+// 	text-shadow: none;
+// 	background: rgba( $color-main, 0.7 );
+// }
+
+html {
+	color: #000;
+	font-family: $fontSansSerif;
+	font-size: 16px;
+	line-height: 1.6;
+	text-rendering: optimizeLegibility;
+	-ms-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+	height: 100%;
+}
+
+@media ( -webkit-min-device-pixel-ratio: 2 ), ( min-resolution: 2dppx ) {
+	html {
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+}
+
+body {
+	margin: 0;
+	height: 100%;
+}
+
+
+//
+// -----------------------------------------------------------------------------
+.-onlyLargeScreen {
+	display: none !important;
+
+	@include mediaL () {
+	display: block !important;
+
+		@at-root br#{ & } {
+			display: inline !important;
+		}
+	}
+}
+.-onlySmallScreen{
+	display: none !important;
+
+	@include mediaS () {
+	display: block !important;
+
+		@at-root br#{ & }{
+			display: inline !important;
+		}
+	}
+}
+.-ignoreSmallScreen{
+	@include mediaS () {
+		display: none !important;
+	}
+}
+.-ignoreMiddleScreen{
+	@include mediaM () {
+		display: none !important;
+	}
+}
+.-ignoreLargeScreen{
+	@include mediaL () {
+		display: none !important;
+	}
+}
+
+//
+// -----------------------------------------------------------------------------
+// .-textCenter{
+// 	text-align: center !important;
+// }
